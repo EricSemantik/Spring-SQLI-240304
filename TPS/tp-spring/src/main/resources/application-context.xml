@@ -29,7 +29,7 @@
 	</bean>
 	
 	<bean id="guitaristeTer" class="spring.formation.orchestre.Guitariste">
-		<constructor-arg ref="guitare" />
+		<constructor-arg ref="ukulele" />
 		<constructor-arg value="Merry Christmas !"/>
 	</bean>
 

@@ -20,6 +20,10 @@ public class Principal {
 		IMusicien guitaristeTer = context.getBean("guitaristeTer", IMusicien.class);
 
 		guitaristeTer.jouer();
+		
+		IMusicien pianiste = context.getBean("pianisteTer", IMusicien.class);
+
+		pianiste.jouer();
 
 		context.close();
 	}
