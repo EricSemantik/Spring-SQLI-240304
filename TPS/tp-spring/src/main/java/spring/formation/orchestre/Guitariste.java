@@ -1,5 +1,7 @@
 package spring.formation.orchestre;
 
+import javax.annotation.PostConstruct;
+
 public class Guitariste implements IMusicien {
 
 	private IInstrument instrument;
@@ -40,6 +42,11 @@ public class Guitariste implements IMusicien {
 
 	public void setMorceau(String morceau) {
 		this.morceau = morceau;
+	}
+	
+	@PostConstruct
+	public void commeVousVoulez() {
+		System.out.println("J'ai créé un guitariste");
 	}
 
 }
