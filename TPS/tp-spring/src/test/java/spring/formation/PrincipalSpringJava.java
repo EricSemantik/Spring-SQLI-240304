@@ -10,13 +10,13 @@ public class PrincipalSpringJava {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		
-//		IMusicien guitariste = context.getBean("guitariste", IMusicien.class);
+		IMusicien guitariste = context.getBean("guitariste", IMusicien.class);
+
+		guitariste.jouer();
 //
-//		guitariste.jouer();
-//
-//		IMusicien guitaristeBis = (IMusicien) context.getBean("guitaristeBis");
-//
-//		guitaristeBis.jouer();
+		IMusicien guitaristeBis = (IMusicien) context.getBean("guitaristeBis");
+
+		guitaristeBis.jouer();
 		
 		IMusicien guitaristeTer = context.getBean("guitaristeTer", IMusicien.class);
 
