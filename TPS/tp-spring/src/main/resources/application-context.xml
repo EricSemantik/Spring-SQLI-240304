@@ -14,7 +14,7 @@
 	<context:annotation-config/>
 	
 	<!-- Préciser les paquetages à scanner -->
-	<context:component-scan base-package="spring.formation.orchestre"/>
+	<context:component-scan base-package="spring.formation.orchestre, spring.formation.aspect"/>
 
 	<bean id="guitare" class="spring.formation.orchestre.Guitare"/>
 	
@@ -32,5 +32,17 @@
 		<constructor-arg ref="ukulele" />
 		<constructor-arg value="Merry Christmas !"/>
 	</bean>
+	
+	<bean id="spectateurAspect" class="spring.formation.aspect.SpectateurAspect"/>
+	
+	<aop:config>
+		<aop:aspect ref="spectateurAspect">
+			<aop:before method="assoir" pointcut="execution(* spring.formation.orchestre.*.jouer(..))" />
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- Activation des annotations pour les aspects (@Aspect, etc...) -->
+	<aop:aspectj-autoproxy />
+
 
 </beans>

@@ -25,7 +25,7 @@ public class Guitariste implements IMusicien {
 	@Override
 	public void jouer() {
 		System.out.println("Le guitariste joue : " + this.morceau + "(" + this.instrument.toString() + ")");
-
+//		throw new RuntimeException("Fausse note");
 	}
 
 	public IInstrument getInstrument() {
