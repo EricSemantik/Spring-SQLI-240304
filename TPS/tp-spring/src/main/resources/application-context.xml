@@ -10,11 +10,27 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+	<!-- Activation du mode annotation-->
+	<context:annotation-config/>
+	
+	<!-- Préciser les paquetages à scanner -->
+	<context:component-scan base-package="spring.formation.orchestre"/>
+
 	<bean id="guitare" class="spring.formation.orchestre.Guitare"/>
 	
 	<bean id="guitariste" class="spring.formation.orchestre.Guitariste">
 		<property name="instrument" ref="guitare"/>
 		<property name="morceau" value="Vive le vent !"/>
+	</bean>
+	
+	<bean id="guitaristeBis" class="spring.formation.orchestre.Guitariste">
+		<constructor-arg ref="guitare"/>
+		<property name="morceau" value="Petit Papa Noël !"/>
+	</bean>
+	
+	<bean id="guitaristeTer" class="spring.formation.orchestre.Guitariste">
+		<constructor-arg ref="guitare" />
+		<constructor-arg value="Merry Christmas !"/>
 	</bean>
 
 </beans>
