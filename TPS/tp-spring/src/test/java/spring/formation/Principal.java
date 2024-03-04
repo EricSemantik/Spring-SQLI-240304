@@ -2,6 +2,7 @@ package spring.formation;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import spring.formation.orchestre.IInstrument;
 import spring.formation.orchestre.IMusicien;
 
 public class Principal {
@@ -24,6 +25,7 @@ public class Principal {
 		IMusicien pianiste = context.getBean("pianisteTer", IMusicien.class);
 
 		pianiste.jouer();
+	
 
 		context.close();
 	}
