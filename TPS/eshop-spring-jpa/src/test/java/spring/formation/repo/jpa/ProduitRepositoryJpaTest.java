@@ -9,34 +9,26 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import spring.formation.config.ApplicationConfig;
 import spring.formation.model.Fournisseur;
 import spring.formation.model.Produit;
 import spring.formation.repo.IProduitRepository;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ApplicationConfig.class)
 public class ProduitRepositoryJpaTest {
-	private static AnnotationConfigApplicationContext context;
-	private static IProduitRepository repoProduit;
-
-	@BeforeClass
-	public static void start() {
-		context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-		repoProduit = context.getBean(IProduitRepository.class);
-	}
-
-	@AfterClass
-	public static void stop() {
-		context.close();
-	}
+	@Autowired
+	private IProduitRepository repoProduit;
 
 	@Test
 	public void testFindAll() {
-		List<Produit> produits = this.repoProduit.findAll();
+		List<Produit> produits = repoProduit.findAll();
 
 		assertNotNull(produits);
 		assertNotEquals(0, produits.size());
@@ -47,7 +39,7 @@ public class ProduitRepositoryJpaTest {
 //	@Test
 	public void testFindById() {
 		Long produitId = 1L;
-		Produit produit = this.repoProduit.findById(produitId).get();
+		Produit produit = repoProduit.findById(produitId).get();
 
 		assertNotNull(produit);
 		assertNotNull(produit.getDetails());
@@ -64,7 +56,7 @@ public class ProduitRepositoryJpaTest {
 		produit.setModele("MOD");
 		produit.setReference("REF");
 
-		produit = this.repoProduit.save(produit);
+		produit = repoProduit.save(produit);
 
 		assertNotEquals(Long.valueOf(0), produit.getId());
 	}
@@ -73,12 +65,12 @@ public class ProduitRepositoryJpaTest {
 	public void shouldUpdate() {
 		Long produitId = this.getLastId();
 		String produitNom = UUID.randomUUID().toString();
-		Produit produit = this.repoProduit.findById(produitId).get();
+		Produit produit = repoProduit.findById(produitId).get();
 
 		produit.setLibelle(produitNom);
-		this.repoProduit.save(produit);
+		repoProduit.save(produit);
 
-		produit = this.repoProduit.findById(produitId).get();
+		produit = repoProduit.findById(produitId).get();
 
 		assertNotNull(produit);
 		assertEquals(produitId, produit.getId());
@@ -88,16 +80,16 @@ public class ProduitRepositoryJpaTest {
 //	@Test
 	public void testDeleteById() {
 		Long produitId = this.getLastId();
-		this.repoProduit.deleteById(produitId);
+		repoProduit.deleteById(produitId);
 
-		Optional<Produit> optProduit = this.repoProduit.findById(produitId);
+		Optional<Produit> optProduit = repoProduit.findById(produitId);
 
 		assertNotNull(optProduit);
 		assertFalse(optProduit.isPresent());
 	}
 
 	private Long getLastId() {
-		List<Produit> fournisseurs = this.repoProduit.findAll();
+		List<Produit> fournisseurs = repoProduit.findAll();
 		return fournisseurs.get(fournisseurs.size() - 1).getId();
 	}
 }

@@ -1,9 +1,10 @@
 package spring.formation.repo.jpa;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import spring.formation.config.ApplicationConfig;
 import spring.formation.model.Client;
@@ -13,26 +14,15 @@ import spring.formation.repo.IClientRepository;
 import spring.formation.repo.IFournisseurRepository;
 import spring.formation.repo.IProduitRepository;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ApplicationConfig.class)
 public class PopulateTest {
-	private static AnnotationConfigApplicationContext context;
-	private static IClientRepository repoClient;
-	private static IFournisseurRepository repoFournisseur;
-	private static IProduitRepository repoProduit;
-
-	@BeforeClass
-	public static void start() {
-		context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-		repoClient = context.getBean(IClientRepository.class);
-		repoFournisseur = context.getBean(IFournisseurRepository.class);
-		repoProduit = context.getBean(IProduitRepository.class);
-	}
-
-	@AfterClass
-	public static void stop() {
-		context.close();
-	}
-
-	
+	@Autowired
+	private IClientRepository repoClient;
+	@Autowired
+	private IFournisseurRepository repoFournisseur;
+	@Autowired
+	private IProduitRepository repoProduit;
 
 	@Test
 	public void populate() {

@@ -9,36 +9,28 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import spring.formation.config.ApplicationConfig;
 import spring.formation.model.Fournisseur;
 import spring.formation.repo.IFournisseurRepository;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ApplicationConfig.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FournisseurRepositoryJpaTest {
-	private static AnnotationConfigApplicationContext context;
-	private static IFournisseurRepository repoFournisseur;
-
-	@BeforeClass
-	public static void start() {
-		context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-		repoFournisseur = context.getBean(IFournisseurRepository.class);
-	}
-
-	@AfterClass
-	public static void stop() {
-		context.close();
-	}
+	@Autowired
+	private IFournisseurRepository repoFournisseur;
 
 	@Test
 	public void testFindAll() {
-		List<Fournisseur> fournisseurs = this.repoFournisseur.findAll();
+		List<Fournisseur> fournisseurs = repoFournisseur.findAll();
 
 		assertNotNull(fournisseurs);
 		assertNotEquals(0, fournisseurs.size());
@@ -49,7 +41,7 @@ public class FournisseurRepositoryJpaTest {
 //	@Test
 	public void testFindById() {
 		Long fournisseurId = 1L;
-		Fournisseur fournisseur = this.repoFournisseur.findById(fournisseurId).get();
+		Fournisseur fournisseur = repoFournisseur.findById(fournisseurId).get();
 
 		assertNotNull(fournisseur);
 		assertNotNull(fournisseur.getProduits());
@@ -63,7 +55,7 @@ public class FournisseurRepositoryJpaTest {
 		fournisseur.setNom("F1");
 		fournisseur.setResponsable("RESP");
 
-		fournisseur = this.repoFournisseur.save(fournisseur);
+		fournisseur = repoFournisseur.save(fournisseur);
 
 		assertNotEquals(Long.valueOf(0), fournisseur.getId());
 	}
@@ -72,12 +64,12 @@ public class FournisseurRepositoryJpaTest {
 	public void shouldUpdate() {
 		Long fournisseurId = this.getLastId();
 		String fournisseurNom = UUID.randomUUID().toString();
-		Fournisseur fournisseur = this.repoFournisseur.findById(fournisseurId).get();
+		Fournisseur fournisseur = repoFournisseur.findById(fournisseurId).get();
 
 		fournisseur.setNom(fournisseurNom);
-		this.repoFournisseur.save(fournisseur);
+		repoFournisseur.save(fournisseur);
 
-		fournisseur = this.repoFournisseur.findById(fournisseurId).get();
+		fournisseur = repoFournisseur.findById(fournisseurId).get();
 
 		assertNotNull(fournisseur);
 		assertEquals(fournisseurId, fournisseur.getId());
@@ -87,16 +79,16 @@ public class FournisseurRepositoryJpaTest {
 //	@Test
 	public void testDeleteById() {
 		Long fournisseurId = this.getLastId();
-		this.repoFournisseur.deleteById(fournisseurId);
+		repoFournisseur.deleteById(fournisseurId);
 
-		Optional<Fournisseur> optFournisseur = this.repoFournisseur.findById(fournisseurId);
+		Optional<Fournisseur> optFournisseur = repoFournisseur.findById(fournisseurId);
 
 		assertNotNull(optFournisseur);
 		assertFalse(optFournisseur.isPresent());
 	}
 
 	private Long getLastId() {
-		List<Fournisseur> fournisseurs = this.repoFournisseur.findAll();
+		List<Fournisseur> fournisseurs = repoFournisseur.findAll();
 		return fournisseurs.get(fournisseurs.size() - 1).getId();
 	}
 }
