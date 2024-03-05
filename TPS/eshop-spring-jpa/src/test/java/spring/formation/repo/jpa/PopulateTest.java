@@ -36,7 +36,7 @@ public class PopulateTest {
 		fournisseur.setNom("F1");
 		fournisseur.setResponsable("RESP");
 
-		fournisseur = this.repoFournisseur.save(fournisseur);
+		fournisseur = repoFournisseur.save(fournisseur);
 
 		Produit produit = new Produit("NEW");
 		produit.setPrixAchat(10d);
@@ -45,6 +45,6 @@ public class PopulateTest {
 		produit.setModele("MOD");
 		produit.setReference("REF");
 
-		produit = this.repoProduit.save(produit);
+		produit = repoProduit.save(produit);
 	}
 }
