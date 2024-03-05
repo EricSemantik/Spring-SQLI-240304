@@ -1,10 +1,11 @@
 
 TPS/.metadata/
 
-TPS/tp-spring/.settings/
+.settings/
 
-TPS/tp-spring/.classpath
+.classpath
 
-TPS/tp-spring/target/
+target/
 
-TPS/tp-spring/.project
+.project
+
