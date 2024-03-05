@@ -55,7 +55,7 @@ public class FournisseurRepositoryJpa implements IFournisseurRepository {
 		em.getTransaction().begin();
 
 		try {
-			if (em.contains(entity)) {
+			if (!em.contains(entity)) {
 				em.persist(entity);
 			}
 

@@ -2,6 +2,6 @@ package spring.formation.repo;
 
 import spring.formation.model.Commentaire;
 
-public interface ICommentaireRepository extends IRepository<Commentaire> {
+public interface ICommentaireRepository extends IRepository<Commentaire, Long> {
 
 }

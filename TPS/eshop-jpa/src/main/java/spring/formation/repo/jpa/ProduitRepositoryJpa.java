@@ -52,7 +52,7 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 		em.getTransaction().begin();
 
 		try {
-			if (em.contains(entity)) {
+			if (!em.contains(entity)) {
 				em.persist(entity);
 			}
 
