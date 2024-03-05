@@ -33,15 +33,7 @@ public class ClientRepositoryJpa implements IClientRepository {
 
 	@Transactional(readOnly = false)
 	public Client save(Client entity) {
-		if (!em.contains(entity)) {
-			em.persist(entity);
-		}
-
-		else { // UPDATE
-			entity = em.merge(entity);
-		}
-
-		return entity;
+		return em.merge(entity);
 	}
 
 	@Transactional(readOnly = false)
