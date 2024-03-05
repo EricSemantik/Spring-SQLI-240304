@@ -6,19 +6,23 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import spring.formation.config.ApplicationConfig;
+import spring.formation.model.Client;
 import spring.formation.model.Fournisseur;
 import spring.formation.model.Produit;
+import spring.formation.repo.IClientRepository;
 import spring.formation.repo.IFournisseurRepository;
 import spring.formation.repo.IProduitRepository;
 
 public class PopulateTest {
 	private static AnnotationConfigApplicationContext context;
+	private static IClientRepository repoClient;
 	private static IFournisseurRepository repoFournisseur;
 	private static IProduitRepository repoProduit;
 
 	@BeforeClass
 	public static void start() {
 		context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		repoClient = context.getBean(IClientRepository.class);
 		repoFournisseur = context.getBean(IFournisseurRepository.class);
 		repoProduit = context.getBean(IProduitRepository.class);
 	}
@@ -46,5 +50,12 @@ public class PopulateTest {
 		produit.setReference("REF");
 
 		produit = repoProduit.save(produit);
+		
+		Client client = new Client();
+		client.setNom("SULTAN");
+		client.setPrenom("Eric");
+		client.setAdresse("eric@semantik.fr");
+		
+		client = repoClient.save(client);
 	}
 }
