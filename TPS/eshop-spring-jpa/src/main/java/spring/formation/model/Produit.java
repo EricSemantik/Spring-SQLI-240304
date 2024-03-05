@@ -11,11 +11,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "produit")
+@NamedQuery(name = "Produit.findByFournisseur", query = "select p from Produit p join p.fournisseur f where f.nom = ?1")
 public class Produit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
