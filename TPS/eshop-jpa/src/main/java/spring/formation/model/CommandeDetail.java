@@ -20,7 +20,7 @@ public class CommandeDetail {
 	@Column(name = "ACH_QUANTITE", nullable = false)
 	private int quantite;
 
-	@Column(name = "ACH_MONTANT", precision = 10, scale = 2, nullable = false)
+	@Column(name = "ACH_MONTANT", nullable = false)
 	private Double prix;
 
 	@ManyToOne

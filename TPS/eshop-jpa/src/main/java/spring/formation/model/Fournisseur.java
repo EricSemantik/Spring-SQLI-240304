@@ -12,7 +12,7 @@ import jakarta.persistence.OneToMany;
 @Entity
 @DiscriminatorValue("fournisseur")
 public class Fournisseur extends Personne {
-	@Column(name = "FOU_RESPONSABLE", length = 200, nullable = false)
+	@Column(name = "FOU_RESPONSABLE", length = 200)
 	private String responsable;
 
 	@OneToMany(mappedBy = "fournisseur")
