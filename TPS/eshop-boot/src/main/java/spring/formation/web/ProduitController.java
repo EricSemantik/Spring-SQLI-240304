@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +22,9 @@ import spring.formation.repo.IProduitRepository;
 @RequestMapping("/produit")
 public class ProduitController {
 	
-	// injecter le ProduitRepository
 	@Autowired
 	private IProduitRepository repoProduit;
-	
-	// exemple d'url : http://localhost:8080/eshop-spring-web/produit/5
-	public String showProduit() {
-		return null;
-	}
-	
+
 	@GetMapping({"", "/list"}) // ETAPE 1 : Réception de la Request
 	public String list(Model model) {
 		List<Produit> produits = repoProduit.findAll(); // ETAPE 2 : Récupérer les données
@@ -40,7 +35,9 @@ public class ProduitController {
 	}
 	
 	@GetMapping("/add")
-	public String add() {
+	public String add(Model model) {
+		model.addAttribute("produit", new Produit());
+		
 		return "produit/form";
 	}
 	
@@ -79,6 +76,17 @@ public class ProduitController {
 		produit.setReference(reference);
 		produit.setModele(modele);
 		produit.setStock(stock);
+		
+		repoProduit.save(produit);
+		
+		return "redirect:list";
+	}
+	
+	@PostMapping("/saveBis")
+	public String saveBis(@ModelAttribute("produit") Produit produit) {
+		if(produit.getId() != null && !repoProduit.existsById(produit.getId())) {
+			throw new ResponseStatusException(HttpStatusCode.valueOf(404));
+		}
 		
 		repoProduit.save(produit);
 		
