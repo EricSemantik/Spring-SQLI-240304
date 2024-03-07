@@ -3,6 +3,8 @@ package spring.formation.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -13,12 +15,15 @@ import jakarta.persistence.OneToMany;
 @DiscriminatorValue("fournisseur")
 public class Fournisseur extends Personne {
 	@Column(name = "FOU_RESPONSABLE", length = 200)
+	@JsonView(Views.ViewCommon.class)
 	private String responsable;
 
 	@OneToMany(mappedBy = "fournisseur")
+	@JsonView(Views.ViewFournisseur.class)
 	private List<Produit> produits = new ArrayList<>();
 
 	@ManyToMany(mappedBy = "fournisseurs")
+	@JsonView(Views.ViewFournisseurDetail.class)
 	private List<Adresse> adresses = new ArrayList<>();
 
 	public String getResponsable() {

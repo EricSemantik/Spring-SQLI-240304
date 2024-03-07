@@ -1,5 +1,7 @@
 package spring.formation.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,10 +20,13 @@ import jakarta.validation.constraints.NotEmpty;
 public abstract class Personne {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Views.ViewCommon.class)
 	protected Long id;
 	@NotEmpty(message = "Le nom est obligatoire")
+	@JsonView(Views.ViewCommon.class)
 	protected String nom;
 	@Email(message = "L''adresse Email n'est pas au bon format")
+	@JsonView(Views.ViewCommon.class)
 	protected String adresse;
 
 	public Long getId() {

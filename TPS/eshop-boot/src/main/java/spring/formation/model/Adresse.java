@@ -3,6 +3,8 @@ package spring.formation.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,15 +22,19 @@ public class Adresse {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ADR_ID")
+	@JsonView(Views.ViewCommon.class)	
 	private Long id;
 
 	@Column(name = "ADR_RUE", length = 200, nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private String rue;
 
 	@Column(name = "ADR_VILLE", length = 150)
+	@JsonView(Views.ViewCommon.class)
 	private String ville;
 
 	@Column(name = "ADR_CP", length = 10)
+	@JsonView(Views.ViewCommon.class)
 	private String codePostal;
 
 	@ManyToOne
