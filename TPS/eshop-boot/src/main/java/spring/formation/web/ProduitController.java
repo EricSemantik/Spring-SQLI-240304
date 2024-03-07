@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import jakarta.validation.Valid;
 import spring.formation.model.Produit;
 import spring.formation.repo.IProduitRepository;
+import spring.formation.web.validator.ProduitValidator;
 
 @Controller
 @RequestMapping("/produit")
@@ -83,7 +86,13 @@ public class ProduitController {
 	}
 	
 	@PostMapping("/saveBis")
-	public String saveBis(@ModelAttribute("produit") Produit produit) {
+	public String saveBis(@ModelAttribute("produit") @Valid Produit produit, BindingResult result) {
+		new ProduitValidator().validate(produit, result);
+		
+		if(result.hasErrors()) {
+			return "produit/form";
+		}
+		
 		if(produit.getId() != null && !repoProduit.existsById(produit.getId())) {
 			throw new ResponseStatusException(HttpStatusCode.valueOf(404));
 		}

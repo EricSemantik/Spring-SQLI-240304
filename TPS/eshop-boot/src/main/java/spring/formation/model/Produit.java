@@ -14,6 +14,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "produit")
@@ -25,6 +27,7 @@ public class Produit {
 	private Long id;
 
 	@Column(name = "PRO_NOM", length = 150)
+	@Pattern(regexp = "^.{4}.*$", message = "Le libellé doit avoir au moins 4 caractères")
 	private String libelle;
 
 	@Column(name = "PRO_PRIX_ACHAT")
@@ -40,6 +43,7 @@ public class Produit {
 	private String modele;
 	
 	@Column(name = "PRO_STOCK")
+	@Min(value = 1, message = "Le stock doit être supérieur à 0")
 	private int stock;
 
 	@ManyToOne

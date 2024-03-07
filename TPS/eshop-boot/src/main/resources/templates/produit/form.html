@@ -16,31 +16,37 @@
 						<label for="libelle">Libellé:</label> <input type="text"
 							class="form-control" id="libelle" name="libelle"
 							th:value="${produit.libelle}" />
+						<span class="text-danger" th:errors="${produit.libelle}"></span>
 					</div>
 					<div class="form-group">
 						<label for="prixAchat">Prix d'achat:</label> <input type="number" step="0.01"
 							class="form-control" id="prixAchat" name="prixAchat"
 							th:value="${produit.prixAchat}" />
+						<span class="text-danger" th:errors="${produit.prixAchat}"></span>
 					</div>
 					<div class="form-group">
 						<label for="prixVente">Prix de vente:</label> <input type="number" step="0.01"
 							class="form-control" id="prixVente" name="prixVente"
-							th:value="${produit.prixAchat}" />
+							th:value="${produit.prixVente}" />
+						<span class="text-danger" th:errors="${produit.prixVente}"></span>
 					</div>
 					<div class="form-group">
 						<label for="reference">Référence:</label> <input type="text"
 							class="form-control" id="reference" name="reference"
 							th:value="${produit.reference}" />
+						<span class="text-danger" th:errors="${produit.reference}"></span>
 					</div>
 					<div class="form-group">
 						<label for="modele">Modèle:</label> <input type="text"
 							class="form-control" id="modele" name="modele"
 							th:value="${produit.modele}" />
+						<span class="text-danger" th:errors="${produit.modele}"></span>
 					</div>
 					<div class="form-group">
 						<label for="stock">Stock:</label> <input type="number"
 							class="form-control" id="stock" name="stock"
 							th:value="${produit.stock}" />
+						<span class="text-danger" th:errors="${produit.stock}"></span>
 					</div>
 
 				</div>
