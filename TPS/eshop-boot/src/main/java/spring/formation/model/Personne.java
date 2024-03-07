@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "personne")
@@ -17,7 +19,9 @@ public abstract class Personne {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
+	@NotEmpty(message = "Le nom est obligatoire")
 	protected String nom;
+	@Email(message = "L''adresse Email n'est pas au bon format")
 	protected String adresse;
 
 	public Long getId() {
